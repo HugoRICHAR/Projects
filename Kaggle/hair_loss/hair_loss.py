@@ -30,33 +30,28 @@ correlation = hair_loss.corr()
 sns.heatmap(correlation, annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
 
 # split the data
-df_train,df_test=train_test_split(hair_loss,test_size=0.25,random_state=777)
+df_train, df_test = train_test_split(hair_loss, test_size=0.25, random_state=777)
 
-X_train=df_train.drop('hair_fall',axis=1)
-Y_train=df_train['hair_fall']
+X_train = df_train.drop('hair_fall', axis=1)
+Y_train = df_train['hair_fall']
 
-X_test=df_test.drop('hair_fall',axis=1)
-Y_test=df_test['hair_fall']
+X_test = df_test.drop('hair_fall', axis=1)
+Y_test = df_test['hair_fall']
 
-#Scale the data to have std 1 and mean 0 (better to do it after splitting)
+# Scale the data to have std 1 and mean 0 (better to do it after splitting)
 
-X_train=StandardScaler().fit_transform(X_train)
-X_test=StandardScaler().fit_transform(X_test)
+X_train = StandardScaler().fit_transform(X_train)
+X_test = StandardScaler().fit_transform(X_test)
 
 # try with the K-neighbors
-clf=KNeighborsClassifier(n_neighbors=20,weights='distance')
-clf.fit(X_train,Y_train)
+clf = KNeighborsClassifier(n_neighbors=20, weights='distance')
+clf.fit(X_train, Y_train)
 
-#look at the confusion matrix
-prediction=clf.predict(X_test)
-cm_knn=confusion_matrix(Y_test,prediction) #doesn't work well
+# look at the confusion matrix
+prediction = clf.predict(X_test)
+cm_knn = confusion_matrix(Y_test, prediction)  # doesn't work well
 
-#try with decision tree
-clf=DecisionTreeClassifier().fit(X_train,Y_train)
-prediction=clf.predict(X_test)
-cm_dtree=confusion_matrix(Y_test,prediction)
-
-
-
-
-
+# try with decision tree
+clf = DecisionTreeClassifier().fit(X_train, Y_train)
+prediction = clf.predict(X_test)
+cm_dtree = confusion_matrix(Y_test, prediction)
