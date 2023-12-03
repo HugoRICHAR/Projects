@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.neural_network import MLPClassifier
 
 # load the data
 hair_loss = pd.read_csv('Kaggle/hair_loss/hair_loss.csv')
@@ -55,3 +56,11 @@ cm_knn = confusion_matrix(Y_test, prediction)  # doesn't work well
 clf = DecisionTreeClassifier().fit(X_train, Y_train)
 prediction = clf.predict(X_test)
 cm_dtree = confusion_matrix(Y_test, prediction)
+
+# try with MLP classifier
+mlp = MLPClassifier(hidden_layer_sizes=(100, 100), max_iter=400, alpha=1e-4, solver='sgd', verbose=10, tol=1e-4, random_state=1)
+mlp.fit(X_train,Y_train)
+prediction = mlp.predict(X_test)
+cm_MLP = confusion_matrix(Y_test, prediction)
+
+## It doesn't work, this could be explained by the low correlation of all the features with the hair_loss see in the data analysis.
