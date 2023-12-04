@@ -27,6 +27,8 @@ fish_data=fish_data.join(habitat)
 color=pd.get_dummies(fish_data['color'])
 fish_data=fish_data.join(color)
 gender=pd.get_dummies(fish_data['Gender'])
+gender.columns=['Female','Male']
 fish_data=fish_data.join(gender)
 
-
+#drop the encoded variables
+fish_data.drop(['habitat','color','Gender'],axis='columns',inplace=True)
